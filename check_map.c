@@ -1,4 +1,4 @@
-
+#include "parsing.h"
 #include<stdio.h>
 #define ERROR 1
 #define SUCCESS 0
@@ -181,19 +181,29 @@ char	*ft_strdup(const char *src)
 	return (dup);
 }
 //pourrait stocker toutes les variables a check aussi...contourner la norminette
-typedef struct	map
-{
-	char	**map;
-	int		map_nb_lines;
-	char	player_orientation;
-	char	*texture_north;
-	char	*texture_south;
-	char	*texture_west;
-	char	*texture_east;
-	char 	*floor_color;
-	char 	*ceiling_color;
 
-} t_map;
+//typedef struct color
+//{
+//	char	r;
+//	char	g;
+//	char	b;
+//}t_color;
+//
+//typedef struct	map
+//{
+//	char		**map;
+//	int			map_nb_lines;
+//	char		player_orientation;
+//	char		*texture_north;
+//	char		*texture_south;
+//	char		*texture_west;
+//	char		*texture_east;
+//	t_color 	*floor_color;
+//	t_color 	*ceiling_color;
+//
+//} t_map;
+
+
 
 void	error_handler(char *txt, int code)
 {
@@ -202,7 +212,7 @@ void	error_handler(char *txt, int code)
 }
 // Proto
 void	check_map_ext(char *argv);
-int	check_element(char *str, t_map *map);
+int	set_texture(char *str, t_map *map);
 //----------------------------------------------------------------------------------------
 
 // check l'extension .cub
@@ -211,16 +221,15 @@ void		check_map_ext(char *argv)
 	int	i;
 
 	i = 0;
-	while (*argv)
+	while (argv[i])
 		i++;
-	if ((argv[i - 1] == 'b') && (argv[i - 2] == 'u') && (argv[i - 3] == 'c'))
-		printf("bonne extension!\n");//return (SUCCESS);
-	else
+	if ((argv[i - 1] != 'b') && (argv[i - 2] != 'u') && (argv[i - 3] != 'c'))
 		error_handler("Error: wrong files extensions", 1);
 }
 
 //compte le nombre de ligne, pour savoir la bonne taille de tableau->map.cub
 //ignore les lignes vides
+//test: is okay
 int	map_count_line(char *argv)
 {
 	int		fd;
@@ -242,15 +251,17 @@ int	map_count_line(char *argv)
 		gnl_return = get_next_line(fd);
 		
 	}
-	if (gnl_return == NULL)// flagada a verirfie
+	if (count == 0)// flagada a verirfie
 	{
 		error_handler("empty map", 1);
 	}
 	close (fd);
+	printf("valeur de ligne: %d\n", count);
 	return (count);
 }
 
 // récupère la map et la met dans un tableau
+//test: is okay
 char	**map_harvest(char *map_sample, int line_map)
 {
 	int		fd;
@@ -263,16 +274,19 @@ char	**map_harvest(char *map_sample, int line_map)
 	tableau_stock = malloc(sizeof(char *) * (line_map + 1));
 	if (!tableau_stock)
 		return (NULL);
+	line = get_next_line(fd);
 	while (i < line_map)
 	{
-		line = get_next_line(fd);
 		char *tmp = line;
 		while (*tmp == ' ' || *tmp == '\t')
 			tmp++;
 		if (*tmp != '\n' && *tmp != '\0')
+		{
 			tableau_stock[i] = ft_strdup(line);
+			i++;
+		}
 		free (line);
-		i++;
+		line = get_next_line(fd);
 	}
 	close (fd);
 	return (tableau_stock);
@@ -284,18 +298,15 @@ void	init_map_cub(char *argv, t_map *map)
 {
 	map->map_nb_lines = map_count_line(argv);
 	map->map = map_harvest(argv, map->map_nb_lines);
+//	int i = 0;
+//	while (map->map && i < map->map_nb_lines)
+//	{
+//		printf("%s\n", map->map[i]);
+//		i++;
+//	}
 	
 }
 
-// int skip_space(char *str)
-// {
-// 	int	i;
-
-// 	i = 0;
-// 	while(str[i] == " ")
-// 		i++;
-// 	return (i);
-// }
 
 char	*skip_space(char *str)
 {
@@ -315,40 +326,89 @@ void check_texture(t_map *map)
 	e = 0;
 	count = 0;
 	char **map_tab = map->map;
-	while( map_tab && (count <= 6))
+	while( map_tab && (count < 6))
 	{
 		
-		if (!check_element(map_tab[e], map))
+		if (!set_texture(map_tab[e], map))
 			count++;
 		else
 			error_handler("wrong texture\n",1);
 		e++;
 	}
 }
+//attaque tout de suite apres les espaces... appelé pour analyser si , on sait deja quel lettre c'est
+//F ....220,100,0
+//on passe d'une strin "200,100,0" a remplir dans une structure
+// na faut convertir en int... pour verifier la valeur
+//split puis atoi
+int	set_color(char *str, t_map *map, t_color *up_or_down, char *letter)
+{
+	int	i;
+	int	j;
+	char **split_str;
 
+	j = 0;
+	str = skip_space(str);
+	split_str = ft_split(str, ",");
+
+
+
+
+}
 
 // skip potentielle espace avant indice, puis re skip pour avoir le path
 // check que ce soit que ce qu'on cherche
-int	check_element(char *str, t_map *map)
+// test: is okay
+//ajouter traitement pour le sol et le plafond
+int	set_texture(char *str, t_map *map)
 {
-	str = skip_space(str); 
-	if (ft_strncmp(str, "NO ", 3) == 0)
-        map->texture_north = ft_strdup(skip_space(str + 3));
+	str = skip_space(str);
+	if (ft_strncmp(str, "NO ", 3) == 0)// avant "NO " 3
+	{
+		map->texture_north = ft_strdup(skip_space(str + 3));
+		printf("its a NO\n");
+	}
     else if (ft_strncmp(str, "SO ", 3) == 0)
-        map->texture_south = ft_strdup(skip_space(str + 3));
+	{
+		map->texture_south = ft_strdup(skip_space(str + 3));
+		printf("its a SO\n");
+	}
     else if (ft_strncmp(str, "WE ", 3) == 0)
-        map->texture_west = ft_strdup(skip_space(str + 3));
+	{
+		map->texture_west = ft_strdup(skip_space(str + 3));
+		printf("its a WE\n");
+	}
     else if (ft_strncmp(str, "EA ", 3) == 0)
-        map->texture_east = ft_strdup(skip_space(str + 3));
+	{
+		map->texture_east = ft_strdup(skip_space(str + 3));
+		printf("its a EA\n");
+	}
     else if (ft_strncmp(str, "F ", 2) == 0)
-        map->floor_color = ft_strdup(skip_space(str + 2));
+	{
+//		map->floor_color = ft_strdup(skip_space(str + 2));
+		//on a la string skip_space(str + 2)
+		set_color(str, map, "F");
+		printf("its a F\n");
+	}
     else if (ft_strncmp(str, "C ", 2) == 0)
-        map->ceiling_color = ft_strdup(skip_space(str + 2));
+	{
+		//map->ceiling_color = ft_strdup(skip_space(str + 2));
+		//on a la string skip_space(str + 2)
+		set_color(str, map, "C");
+		printf("its a C\n");
+	}
 	else
+	{
 		return(ERROR);
-	return (SUCCESS);
+	}
+	return(SUCCESS);
+
 }
 
+//int check_map(char **map)
+//{
+//	printf("plop\n");
+//}
 
 /*
 big mama
@@ -362,31 +422,38 @@ note:
 But:
 - stocke la map->struct
 - check extension
-- présence d'une map 
+- présence d'une map
+- présence des élements de structures
+- vérifiér viabilité
 !
 */
-
-int	parsing_map(int argc, char **argv, t_map *map)
+int	parsing_cub(int argc, char **argv, t_map *map)
 {
-	
-	check_map_ext(argv[1]);
 	if (argc != 2)
-		return(ERROR);
+		error_handler("Pas le bon nbre d'arguments\n",1);
+	check_map_ext(argv[1]);
 	init_map_cub(argv[1], map);
-	//free map si soucis
+//	//free map si soucis
 	check_texture(map);
+	//check_map(map->map);
 	return (SUCCESS);
 }
 
 int main(int argc, char **argv)
 {
-	t_map *map;
-	parsing_map(argc,argv, map);
+	t_map *map = malloc(sizeof(t_map));
+    if (map == NULL)
+        return (printf("beurk\n"));
+
+	printf("plop\n");
+	parsing_cub(argc,argv, map);
 
 	printf("Voici le path de North: %s\n", map->texture_north);
 	printf("Voici le path de South: %s\n", map->texture_south);
 	printf("Voici le path de West: %s\n", map->texture_west);
 	printf("Voici le path de East: %s\n", map->texture_east);
+//	printf("Voici les coordonnés de Floor %s\n", map->floor_color);
+//	printf("Voici les coordonnés de Ceiling %s\n", map->ceiling_color);
 
 	return (0);
 }
