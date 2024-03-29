@@ -9,6 +9,8 @@
 #include <fcntl.h>
 # define BUFFER_SIZE 10
 
+
+
 int	ft_strncmp(const char *s1, const char *s2, size_t n)
 {
 	size_t	i;
@@ -341,19 +343,55 @@ void check_texture(t_map *map)
 //on passe d'une strin "200,100,0" a remplir dans une structure
 // na faut convertir en int... pour verifier la valeur
 //split puis atoi
-int	set_color(char *str, t_map *map, t_color *up_or_down, char *letter)
+void free_split(char **split_str) 
+{ 
+	int	j;
+	
+	j = 0;
+    while (split_str[j]) 
+	{
+        free(split_str[j]);
+        j++;
+    }
+    free(split_str);
+	error_handler("Error: Invalid color format\n",1);
+}
+
+int	*set_color(char *str, t_map *map, t_color *up_or_down, char *letter)
 {
 	int	i;
-	int	j;
 	char **split_str;
-
-	j = 0;
+	int rgb[3];
+	
+	i = 0;
 	str = skip_space(str);
 	split_str = ft_split(str, ",");
+	//checker si que int
+	while (split_str[i] != NULL)
+		i++;
+	if (i != 3) 
+	{
+		free_split(split_str);
+	
+		return;
+	}
 
-
-
-
+	while (split_str[i] != NULL && i < 3) 
+	{
+        if (ft_isdigit(split_str[i])) 
+		{
+            free_split(split_str);
+			break;
+		}
+		rgb[i] = ft_atoi(split_str[i]);
+		if (rgb[i] < 0 || rgb[i] > 255) 
+		{
+            free_split(split_str);
+            break;
+        }
+		i++;
+	}
+	return (rgb);
 }
 
 // skip potentielle espace avant indice, puis re skip pour avoir le path
