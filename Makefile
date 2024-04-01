@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: lvon-war <lvonwar@gmail.com>               +#+  +:+       +#+         #
+#    By: angnguye <angnguye@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/25 16:52:50 by lvon-war          #+#    #+#              #
-#    Updated: 2024/03/28 22:26:20 by lvon-war         ###   ########.fr        #
+#    Updated: 2024/04/01 22:12:20 by angnguye         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,7 +32,8 @@ NAME	=	cube3d.a
 CFLAGS	=	-Wall -Werror -Wextra
 AR		=	ar -rsc
 FILES	=	main.c controls.c calc.c utils.c display.c  display_world.c \
-sprite.c object.c data_utils.c player.c map.c utilsbis.c init.c
+sprite.c object.c data_utils.c player.c map.c utilsbis.c init.c \
+parsing.c parsing_floor_ceiling.c parsing_utils.c
 
 # Path for .c , .h and .o Files 
 LIBFT	=	./include/libft/lib.a

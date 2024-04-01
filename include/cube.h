@@ -67,4 +67,7 @@
 //player
 # include "player.h"
 
+//parsing
+# include "parsing.h"
+
 #endif /*!CUBE_H */
