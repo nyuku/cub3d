@@ -6,7 +6,7 @@
 /*   By: angnguye <angnguye@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/01 21:39:05 by angnguye          #+#    #+#             */
-/*   Updated: 2024/04/01 22:29:17 by angnguye         ###   ########.fr       */
+/*   Updated: 2024/04/02 00:05:40 by angnguye         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,39 +28,76 @@ void	init_floor_ceiling(int *rgb, t_map *map, char letter)
 	}
 }
 
+int	check_single_component(char *str, int *value)
+{
+	while (*str)
+	{
+		if (!ft_isdigit(*str))
+			return (0);
+		str++;
+	}
+	*value = ft_atoi(str);
+	if (*value < 0 || *value > 255)
+		return (0);
+	return (1);
+}
+
 // Vérifie les composants RGB et les convertit
 int	*check_components(char **split_str, int *rgb)
 {
-	int		i;
-	char	*current;
+	int	i;
+	int	value;
 
 	i = 0;
-	while (split_str[i] != NULL && i <= 3)
+	while (split_str[i] != NULL && i < 3)
 	{
-		current = split_str[i];
-		while (*current)
+		if (!check_single_component(split_str[i], &value))
 		{
-			if (!ft_isdigit(*current))
-			{
-				ft_printf("fuck digit\n");
-				free(rgb);
-				free_split(split_str);
-				return (NULL);
-			}
-			current++;
-		}
-		rgb[i] = ft_atoi(split_str[i]);
-		if (rgb[i] < 0 || rgb[i] > 255)
-		{
-			ft_printf("fuck 255\n");
 			free(rgb);
 			free_split(split_str);
 			return (NULL);
 		}
-		i++;
+		rgb[i] = value;
+	}
+	if (i != 3)
+	{
+		free(rgb);
+		free_split(split_str);
+		return (NULL);
 	}
 	return (rgb);
 }
+
+// int	*check_components(char **split_str, int *rgb)
+// {
+// 	int		i;
+// 	char	*current;
+
+// 	i = 0;
+// 	while (split_str[i] != NULL && i <= 3)
+// 	{
+// 		current = split_str[i];
+// 		while (*current)
+// 		{
+// 			if (!ft_isdigit(*current))
+// 			{
+// 				free(rgb);
+// 				free_split(split_str);
+// 				return (NULL);
+// 			}
+// 			current++;
+// 		}
+// 		rgb[i] = ft_atoi(split_str[i]);
+// 		if (rgb[i] < 0 || rgb[i] > 255)
+// 		{
+// 			free(rgb);
+// 			free_split(split_str);
+// 			return (NULL);
+// 		}
+// 		i++;
+// 	}
+// 	return (rgb);
+// }
 
 //recupere la str de F ou C converti en int* avec les check.
 
@@ -82,7 +119,7 @@ int	*set_color(char *str)
 	str++;
 	str = skip_space(str);
 	split_str = ft_split(str, ',');
-	while (split_str[i] != NULL)
+	while (split_str[i++] != NULL)
 		i++;
 	if (i != 3)
 	{
