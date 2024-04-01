@@ -6,7 +6,7 @@
 /*   By: angnguye <angnguye@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/01 21:39:05 by angnguye          #+#    #+#             */
-/*   Updated: 2024/04/01 22:10:56 by angnguye         ###   ########.fr       */
+/*   Updated: 2024/04/01 22:29:17 by angnguye         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,25 +35,29 @@ int	*check_components(char **split_str, int *rgb)
 	char	*current;
 
 	i = 0;
-	while (i < 3)
+	while (split_str[i] != NULL && i <= 3)
 	{
 		current = split_str[i];
-		while (*current++)
+		while (*current)
 		{
 			if (!ft_isdigit(*current))
 			{
+				ft_printf("fuck digit\n");
 				free(rgb);
 				free_split(split_str);
 				return (NULL);
 			}
+			current++;
 		}
 		rgb[i] = ft_atoi(split_str[i]);
-		if (rgb[i++] < 0 || rgb[i++] > 255)
+		if (rgb[i] < 0 || rgb[i] > 255)
 		{
+			ft_printf("fuck 255\n");
 			free(rgb);
 			free_split(split_str);
 			return (NULL);
 		}
+		i++;
 	}
 	return (rgb);
 }
@@ -67,9 +71,11 @@ int	*set_color(char *str)
 	int		i;
 
 	i = 0;
+	split_str = NULL;
 	rgb = (int *)malloc(sizeof(int) * 3);
 	if (rgb == NULL)
 	{
+		ft_printf("fuck rgb\n");
 		free_split(split_str);
 		return (NULL);
 	}
@@ -80,11 +86,12 @@ int	*set_color(char *str)
 		i++;
 	if (i != 3)
 	{
+		ft_printf("fuck i\n");
 		free_split(split_str);
 		return (NULL);
 	}
 	rgb = check_components(split_str, rgb);
-	free_split(split_str);
+	//free_split(split_str);
 	return (rgb);
 }
 

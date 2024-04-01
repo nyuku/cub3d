@@ -6,7 +6,7 @@
 /*   By: angnguye <angnguye@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/01 21:17:14 by angnguye          #+#    #+#             */
-/*   Updated: 2024/04/01 22:19:39 by angnguye         ###   ########.fr       */
+/*   Updated: 2024/04/01 22:21:59 by angnguye         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ void	set_floor_ceiling(char *str, t_map *map)
 
 int	set_texture(char *str, t_map *map, int *texture)
 {
-	char	**texture_pointers;
+	char	**texture_pointers[4];
 	char	*identifiers[4];
 
 	texture_pointers[0] = &map->texture_north;
