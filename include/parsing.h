@@ -20,8 +20,9 @@ void	free_split(char **split_str);
 int		*set_color(char *str);
 int		parsing_cub(int argc, char **argv, t_map *map);
 int		set_texture(char *str, t_map *map, int *texture);
-int	check_single_component(char *str, int *value);
+int     check_single_component(char *str, int *value);
 int		*check_components(char **split_str, int *rgb);
 void	init_floor_ceiling(int *rgb, t_map *map, char letter);
+int	check_str_digit(char **split_str, int *rgb,int i);
 
 #endif
