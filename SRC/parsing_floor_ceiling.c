@@ -6,7 +6,7 @@
 /*   By: angela <angela@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/01 21:39:05 by angnguye          #+#    #+#             */
-/*   Updated: 2024/04/02 17:57:30 by angela           ###   ########.fr       */
+/*   Updated: 2024/04/02 18:04:15 by angela           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,24 +27,24 @@ void	init_floor_ceiling(int *rgb, t_map *map, char letter)
 		map->floor_color->b = rgb[2];
 	}
 }
+
 //check if nombre et le converti en int
-int	check_str_digit(char **split_str, int *rgb,int i)
+int	check_str_digit(char **split_str, int *rgb, int i)
 {
-	char *current;
+	char	*current;
 
 	current = split_str[i];
 	while (*current)
 	{
 		if (!ft_isdigit(*current))
 		{
-				free(rgb);
-				free_split(split_str);
-				return (ERROR);
+			free(rgb);
+			free_split(split_str);
+			return (ERROR);
 		}
 		current++;
 	}
-	return(SUCCESS);
-
+	return (SUCCESS);
 }
 
 // Vérifie les composants RGB et les convertit
@@ -76,24 +76,12 @@ int	check_str_digit(char **split_str, int *rgb,int i)
 int	*check_components(char **split_str, int *rgb)
 {
 	int		i;
-	//char	*current;
 
 	i = 0;
 	while (split_str[i] != NULL && i <= 3)
 	{
-		//current = split_str[i];
-		// while (*current)
-		// {
-		// 	if (!ft_isdigit(*current))
-		// 	{
-		// 		free(rgb);
-		// 		free_split(split_str);
-		// 		return (NULL);
-		// 	}
-		// 	current++;
-		// }
 		if (check_str_digit(split_str, rgb, i) == ERROR)
-			return(NULL);
+			return (NULL);
 		rgb[i] = ft_atoi(split_str[i]);
 		if (rgb[i] < 0 || rgb[i] > 255)
 		{
@@ -107,7 +95,6 @@ int	*check_components(char **split_str, int *rgb)
 }
 
 //recupere la str de F ou C converti en int* avec les check.
-
 int	*set_color(char *str)
 {
 	char	**split_str;
@@ -119,7 +106,6 @@ int	*set_color(char *str)
 	rgb = (int *)malloc(sizeof(int) * 3);
 	if (rgb == NULL)
 	{
-		ft_printf("fuck rgb\n");
 		free_split(split_str);
 		return (NULL);
 	}
@@ -128,14 +114,11 @@ int	*set_color(char *str)
 	split_str = ft_split(str, ',');
 	while (split_str[i] != NULL)
 		i++;
-
 	if (i != 3)
 	{
-		ft_printf("fuck i\n");
 		free_split(split_str);
 		return (NULL);
 	}
-
 	check_components(split_str, rgb);
 	//free_split(split_str);
 	return (rgb);
