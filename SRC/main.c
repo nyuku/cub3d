@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lvon-war <lvon-war@student.42.fr>          +#+  +:+       +#+        */
+/*   By: angnguye <angnguye@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 11:48:49 by lvon-war          #+#    #+#             */
-/*   Updated: 2024/03/29 17:20:49 by lvon-war         ###   ########.fr       */
+/*   Updated: 2024/04/03 14:37:29 by angnguye         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,35 +96,9 @@ int	loopydyloop(void *param)
 //parsing test
 int main(int argc, char **argv)
 {
-	t_map *map = malloc(sizeof(t_map));
-	t_map *color = malloc(sizeof(color));
-	if (map == NULL)
-		return (ft_printf("beurk\n"));
-
-	map->floor_color = malloc(sizeof(t_color));
-	if (map->floor_color == NULL) {
-		free(map); // N'oublie pas de libérer la mémoire allouée précédemment
-		return (ft_printf("Erreur d'allocation pour floor_color\n"));
-	}
-
-// Allocation et initialisation de ceiling_color
-	map->ceiling_color = malloc(sizeof(t_color));
-	if (map->ceiling_color == NULL) {
-		free(map->floor_color); // Libère la mémoire allouée précédemment
-		free(map); // N'oublie pas de libérer la mémoire allouée précédemment
-		return (ft_printf("Erreur d'allocation pour ceiling_color\n"));
-	}
-
-
-	parsing_cub(argc,argv, map);
-
-	ft_printf("Voici le path de North: %s\n", map->texture_north);
-	ft_printf("Voici le path de South: %s\n", map->texture_south);
-	ft_printf("Voici le path de West: %s\n", map->texture_west);
-	ft_printf("Voici le path de East: %s\n", map->texture_east);
-
-	ft_printf("Voici les coordonnés de Floor %d-%d-%d\n", map->floor_color->r,map->floor_color->g,map->floor_color->b);
-	ft_printf("Voici les coordonnés de Ceiling  %d-%d-%d\n", map->ceiling_color->r,map->ceiling_color->g,map->ceiling_color->b);
+	//a definir t_map *map;
+	parsing_cub(argc,argv);
+	
 
 	return (0);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: angela <angela@student.42.fr>              +#+  +:+       +#+        */
+/*   By: angnguye <angnguye@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 18:47:35 by angela            #+#    #+#             */
-/*   Updated: 2024/04/02 23:43:31 by angela           ###   ########.fr       */
+/*   Updated: 2024/04/03 14:39:23 by angnguye         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 # include "struct.h"
 
 // parsing.h
-int		parsing_cub(int argc, char **argv, t_map *map);
+int		parsing_cub(int argc, char **argv);
 void	check_map_ext(char *argv, char *ext);
 void	check_texture(t_map *map);
 int		set_texture(char *str, t_map *map, int *texture);
@@ -41,7 +41,7 @@ void	free_split(char **split_str, int error);
 
 //parsing_map.c
 int is_struc(char *str);
-int check_character(char *str);
+int	check_character(char *str, t_map *map);
 int   check_carte(t_map *map);
 
 #endif

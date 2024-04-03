@@ -3,14 +3,43 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: angela <angela@student.42.fr>              +#+  +:+       +#+        */
+/*   By: angnguye <angnguye@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/01 21:17:14 by angnguye          #+#    #+#             */
-/*   Updated: 2024/04/02 23:44:21 by angela           ###   ########.fr       */
+/*   Updated: 2024/04/03 19:16:50 by angnguye         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cube.h"
+
+//init les structs...a mettre ailleurs dans un autre fichier
+t_map	*init_parsing(void)
+{
+	t_map *map = malloc(sizeof(t_map));
+	t_map *color = malloc(sizeof(color));
+	if (map == NULL)
+	{
+		error_handler("peut pas malloc pour map\n", 1);
+		return (NULL);
+	}
+	map->floor_color = malloc(sizeof(t_color));
+	if (map->floor_color == NULL)
+	{
+		free(map);
+		error_handler("Erreur d'allocation pour floor_color\n", 1);
+		return (NULL);
+	}
+
+	map->ceiling_color = malloc(sizeof(t_color));
+	if (map->ceiling_color == NULL) {
+		free(map->floor_color);
+		free(map);
+		error_handler("Erreur d'allocation pour ceiling_color\n", 1);
+		return (NULL);
+	}
+	map->player_orientation = '-';
+	return(map);
+}
 
 /*
 -Main parsing-
@@ -25,14 +54,25 @@ But:
 - vérifiér viabilité
 !
 */
-int	parsing_cub(int argc, char **argv, t_map *map)
+int	parsing_cub(int argc, char **argv)
 {
 	if (argc != 2)
 		error_handler("Pas le bon nbre d'arguments\n", 1);
+	t_map *map;
+	map = init_parsing();
 	check_map_ext(argv[1], "cub");
 	init_map_cub(argv[1], map);
 	check_texture(map);
 	//check_map(map);
+	ft_printf("Voici le path de North: %s\n", map->texture_north);
+	ft_printf("Voici le path de South: %s\n", map->texture_south);
+	ft_printf("Voici le path de West: %s\n", map->texture_west);
+	ft_printf("Voici le path de East: %s\n", map->texture_east);
+
+	ft_printf("Voici les coordonnés de Floor %d-%d-%d\n", map->floor_color->r,map->floor_color->g,map->floor_color->b);
+	ft_printf("Voici les coordonnés de Ceiling  %d-%d-%d\n", map->ceiling_color->r,map->ceiling_color->g,map->ceiling_color->b);
+	
+	check_carte(map);
 	return (SUCCESS);
 }
 

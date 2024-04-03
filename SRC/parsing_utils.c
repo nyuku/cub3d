@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: angela <angela@student.42.fr>              +#+  +:+       +#+        */
+/*   By: angnguye <angnguye@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/01 21:23:39 by angnguye          #+#    #+#             */
-/*   Updated: 2024/04/02 23:46:26 by angela           ###   ########.fr       */
+/*   Updated: 2024/04/03 19:15:48 by angnguye         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ char	**map_harvest(char *map_sample, int line_map)
 //skip les espaces
 char	*skip_space(char *str)
 {
-	while (*str == ' ')
+	while (*str == ' ' || *str == '\t' || *str == '\n')// ajout de \n et \t
 		str++;
 	return (str);
 }
