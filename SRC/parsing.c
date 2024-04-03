@@ -6,7 +6,7 @@
 /*   By: angnguye <angnguye@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/01 21:17:14 by angnguye          #+#    #+#             */
-/*   Updated: 2024/04/03 19:16:50 by angnguye         ###   ########.fr       */
+/*   Updated: 2024/04/03 21:13:30 by angnguye         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,15 +63,21 @@ int	parsing_cub(int argc, char **argv)
 	check_map_ext(argv[1], "cub");
 	init_map_cub(argv[1], map);
 	check_texture(map);
-	//check_map(map);
-	ft_printf("Voici le path de North: %s\n", map->texture_north);
-	ft_printf("Voici le path de South: %s\n", map->texture_south);
-	ft_printf("Voici le path de West: %s\n", map->texture_west);
-	ft_printf("Voici le path de East: %s\n", map->texture_east);
-
-	ft_printf("Voici les coordonnés de Floor %d-%d-%d\n", map->floor_color->r,map->floor_color->g,map->floor_color->b);
-	ft_printf("Voici les coordonnés de Ceiling  %d-%d-%d\n", map->ceiling_color->r,map->ceiling_color->g,map->ceiling_color->b);
 	
+	// ft_printf("Voici le path de North: %s\n", map->texture_north);
+	// ft_printf("Voici le path de South: %s\n", map->texture_south);
+	// ft_printf("Voici le path de West: %s\n", map->texture_west);
+	// ft_printf("Voici le path de East: %s\n", map->texture_east);
+
+	// ft_printf("Voici les coordonnés de Floor %d-%d-%d\n", map->floor_color->r,map->floor_color->g,map->floor_color->b);
+	// ft_printf("Voici les coordonnés de Ceiling  %d-%d-%d\n", map->ceiling_color->r,map->ceiling_color->g,map->ceiling_color->b);
+	ft_printf("longueur du fichier %d\n", map->map_nb_lines);
+	int i = 0;
+	while (map->map[i] != NULL)
+    {
+        ft_printf("%s\n", map->map[i]); 
+        i++;
+    }
 	check_carte(map);
 	return (SUCCESS);
 }

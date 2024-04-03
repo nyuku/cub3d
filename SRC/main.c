@@ -6,7 +6,7 @@
 /*   By: angnguye <angnguye@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 11:48:49 by lvon-war          #+#    #+#             */
-/*   Updated: 2024/04/03 14:37:29 by angnguye         ###   ########.fr       */
+/*   Updated: 2024/04/03 19:19:00 by angnguye         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ int	loopydyloop(void *param)
 	displayimg(d);
 	return (0);
 }
-
+// Main du Rcasting :D
 //int	main(void)
 //{
 //	t_data	*data;
@@ -93,10 +93,10 @@ int	loopydyloop(void *param)
 //}
 
 
-//parsing test
+//Main pour test le parsing
 int main(int argc, char **argv)
 {
-	//a definir t_map *map;
+	//a definir t_map *map dans main;
 	parsing_cub(argc,argv);
 	
 

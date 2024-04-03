@@ -6,7 +6,7 @@
 /*   By: angnguye <angnguye@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 18:58:24 by angela            #+#    #+#             */
-/*   Updated: 2024/04/03 19:13:15 by angnguye         ###   ########.fr       */
+/*   Updated: 2024/04/03 21:22:24 by angnguye         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,13 +29,13 @@ int	is_struc(char *str)
     str = skip_space(str);
     while (i <= 5)
 	{
-        ft_printf("je test la str suivante %s\n", str);
+         ft_printf("je test la str suivante %s\n", str);
 		if (ft_strncmp(str, identifiers[i], ft_strlen(identifiers[i])) == 0)
         {
 			ft_printf("on a trouvé le caractere %s\n", identifiers[i]);
 			return (SUCCESS);
 		}
-		ft_printf("je suis en train de test le caractere %s\n", identifiers[i]);
+		 ft_printf("je suis en train de test le caractere %s\n", identifiers[i]);
         i++;
 
     }
