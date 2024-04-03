@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lvon-war <lvon-war@student.42.fr>          +#+  +:+       +#+        */
+/*   By: angela <angela@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 11:48:49 by lvon-war          #+#    #+#             */
-/*   Updated: 2024/03/29 17:20:49 by lvon-war         ###   ########.fr       */
+/*   Updated: 2024/04/02 23:43:24 by angela           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,6 +125,7 @@ int main(int argc, char **argv)
 
 	ft_printf("Voici les coordonnés de Floor %d-%d-%d\n", map->floor_color->r,map->floor_color->g,map->floor_color->b);
 	ft_printf("Voici les coordonnés de Ceiling  %d-%d-%d\n", map->ceiling_color->r,map->ceiling_color->g,map->ceiling_color->b);
+	check_carte (map);
 
 	return (0);
 }

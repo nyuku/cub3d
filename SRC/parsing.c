@@ -3,16 +3,40 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: angnguye <angnguye@student.42.fr>          +#+  +:+       +#+        */
+/*   By: angela <angela@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/01 21:17:14 by angnguye          #+#    #+#             */
-/*   Updated: 2024/04/01 22:21:59 by angnguye         ###   ########.fr       */
+/*   Updated: 2024/04/02 23:44:21 by angela           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cube.h"
 
-// check l'extension "ext"
+/*
+-Main parsing-
+note:
+- nb: init "t_map" qq part
+
+But:
+- stocke la map->struct
+- check extension
+- présence d'une map
+- présence des élements de structures
+- vérifiér viabilité
+!
+*/
+int	parsing_cub(int argc, char **argv, t_map *map)
+{
+	if (argc != 2)
+		error_handler("Pas le bon nbre d'arguments\n", 1);
+	check_map_ext(argv[1], "cub");
+	init_map_cub(argv[1], map);
+	check_texture(map);
+	//check_map(map);
+	return (SUCCESS);
+}
+
+// -check- l'extension "ext"
 //[c,u,b] et [x,p,m]
 void	check_map_ext(char *argv, char *ext)
 {
@@ -26,7 +50,7 @@ void	check_map_ext(char *argv, char *ext)
 		error_handler("Error: wrong files extensions", 1);
 }
 
-// lis la map receuilli et check si les elements de textures sont correct
+// -launcher- lis le tableau et check si les elements de textures
 void	check_texture(t_map *map)
 {
 	int		e;
@@ -50,30 +74,7 @@ void	check_texture(t_map *map)
 	}
 }
 
-//Bigmama
-//recupere la str de couleur, converti en int
-//vérifie s que chiffre et dans bon scope
-//verifie bien 3 chiffre
-//remet dans un int * le contenu selon F OU C
-void	set_floor_ceiling(char *str, t_map *map)
-{
-	int		*rgb;
-	char	letter;
-
-	letter = *str;
-	rgb = set_color(str);
-	if (rgb == NULL)
-	{
-		error_handler("pas reussi a recup les données RGB\n", 1);
-		return ;
-	}
-	init_floor_ceiling(rgb, map, letter);
-	free(rgb);
-}
-
-// skip potentielle espace avant indice, puis re skip pour avoir le path
-// check que ce soit que ce qu'on cherche
-
+// -check- NO, SO, WE, EA, F, C
 int	set_texture(char *str, t_map *map, int *texture)
 {
 	char	**texture_pointers[4];
@@ -102,49 +103,21 @@ int	set_texture(char *str, t_map *map, int *texture)
 	}
 	return (ERROR);
 }
-/*
-big mama
-note:
-- Appel de fonction en main?
-- nb: init "t_map" qq part
-- appel de fonction:
-	if (!parsing_map(argc,argv)
-		return(exit_game)
 
-But:
-- stocke la map->struct
-- check extension
-- présence d'une map
-- présence des élements de structures
-- vérifiér viabilité
-!
-*/
-
-int	parsing_cub(int argc, char **argv, t_map *map)
+//-check- 
+//-launcher- F et C si bien des nombre 0-255
+void	set_floor_ceiling(char *str, t_map *map)
 {
-	if (argc != 2)
-		error_handler("Pas le bon nbre d'arguments\n", 1);
-	check_map_ext(argv[1], "cub");
-	init_map_cub(argv[1], map);
-	check_texture(map);
-	return (SUCCESS);
-}
+	int		*rgb;
+	char	letter;
 
-//int main(int argc, char **argv)
-//{
-//	t_map *map = malloc(sizeof(t_map));
-//    if (map == NULL)
-//        return (printf("beurk\n"));
-//
-//	printf("plop\n");
-//	parsing_cub(argc,argv, map);
-//
-//	printf("Voici le path de North: %s\n", map->texture_north);
-//	printf("Voici le path de South: %s\n", map->texture_south);
-//	printf("Voici le path de West: %s\n", map->texture_west);
-//	printf("Voici le path de East: %s\n", map->texture_east);
-////	printf("Voici les coordonnés de Floor %s\n", map->floor_color);
-////	printf("Voici les coordonnés de Ceiling %s\n", map->ceiling_color);
-//
-//	return (0);
-//}
+	letter = *str;
+	rgb = set_color(str);
+	if (rgb == NULL)
+	{
+		error_handler("pas reussi a recup les données RGB\n", 1);
+		return ;
+	}
+	init_floor_ceiling(rgb, map, letter);
+	free(rgb);
+}
