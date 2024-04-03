@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: angnguye <angnguye@student.42.fr>          +#+  +:+       +#+        */
+/*   By: angela <angela@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/01 21:23:39 by angnguye          #+#    #+#             */
-/*   Updated: 2024/04/01 21:26:29 by angnguye         ###   ########.fr       */
+/*   Updated: 2024/04/02 23:46:26 by angela           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,14 @@
 /*
 Fonctions pour récupérer les infos du fichier.cub
 */
+
+// -launcher- la fonction de compter et remplir le tableau
+void	init_map_cub(char *argv, t_map *map)
+{
+	map->map_nb_lines = map_count_line(argv);
+	map->map = map_harvest(argv, map->map_nb_lines);
+}
+
 //compte le nombre de ligne, pour savoir la bonne taille de tableau->map.cub
 //ignore les lignes entières vides
 int	map_count_line(char *argv)
@@ -42,7 +50,7 @@ int	map_count_line(char *argv)
 	return (count);
 }
 
-// récupère la map avec gnl et la met dans un tableau
+// -tableau-récupère la map avec gnl et la met dans un tableau
 char	**map_harvest(char *map_sample, int line_map)
 {
 	int		fd;
@@ -71,13 +79,7 @@ char	**map_harvest(char *map_sample, int line_map)
 	return (tableau_stock);
 }
 
-// lance la fonction de compter et remplir le tableau
-void	init_map_cub(char *argv, t_map *map)
-{
-	map->map_nb_lines = map_count_line(argv);
-	map->map = map_harvest(argv, map->map_nb_lines);
-}
-
+//skip les espaces
 char	*skip_space(char *str)
 {
 	while (*str == ' ')
@@ -85,12 +87,8 @@ char	*skip_space(char *str)
 	return (str);
 }
 
-//attaque tout de suite apres les espaces... appelé pour analyser si , on sait deja quel lettre c'est
-//F ....220,100,0
-//on passe d'une strin "200,100,0" a remplir dans une structure
-// na faut convertir en int... pour verifier la valeur
-//split puis atoi
-void	free_split(char **split_str)
+//libère le tableau avec option message d'erreur
+void	free_split(char **split_str, int error)
 {
 	int	j;
 
@@ -101,5 +99,6 @@ void	free_split(char **split_str)
 		j++;
 	}
 	free(split_str);
-	error_handler("Error: Invalid color format\n", 1);
+	if (error == 1)
+		error_handler("Error: Invalid color format\n", 1);
 }
