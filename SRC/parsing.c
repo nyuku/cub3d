@@ -6,7 +6,7 @@
 /*   By: angnguye <angnguye@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/01 21:17:14 by angnguye          #+#    #+#             */
-/*   Updated: 2024/04/03 21:13:30 by angnguye         ###   ########.fr       */
+/*   Updated: 2024/04/04 19:14:21 by angnguye         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,17 @@ int	parsing_cub(int argc, char **argv)
         ft_printf("%s\n", map->map[i]); 
         i++;
     }
-	check_carte(map);
+	ft_printf("\n");
+	int m = check_carte(map);
+	init_mapping(m, map);
+
+	i = 0;
+	while (map->mapping[i] != NULL)
+    {
+        ft_printf("%s\n", map->mapping[i]); 
+        i++;
+    }
+	
 	return (SUCCESS);
 }
 

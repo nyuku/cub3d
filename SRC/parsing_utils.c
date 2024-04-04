@@ -6,7 +6,7 @@
 /*   By: angnguye <angnguye@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/01 21:23:39 by angnguye          #+#    #+#             */
-/*   Updated: 2024/04/03 21:12:52 by angnguye         ###   ########.fr       */
+/*   Updated: 2024/04/04 18:10:37 by angnguye         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -242,7 +242,8 @@ char	**map_harvest(char *map_sample, int line_map)
 
 	i = 0;
 	fd = open(map_sample, O_RDONLY);
-	tableau_stock = malloc(sizeof(char *) * (line_map + 1));
+	tableau_stock =  ft_calloc(line_map + 1, sizeof(char *));
+//malloc(sizeof(char *) * (line_map + 1));
 	if (!tableau_stock)
 		return (NULL);
 	line = get_next_line(fd);

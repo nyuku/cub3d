@@ -6,11 +6,39 @@
 /*   By: angnguye <angnguye@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 18:58:24 by angela            #+#    #+#             */
-/*   Updated: 2024/04/03 21:22:24 by angnguye         ###   ########.fr       */
+/*   Updated: 2024/04/04 19:11:37 by angnguye         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cube.h"
+
+int	init_mapping(int i, t_map *map)
+{
+	char	*tmp;
+	int		m;
+	
+	m = 0;
+	if (i < 3)
+	{
+		error_handler("ce n'est pas une map valide\n", 1);
+		return (ERROR);
+	}
+	map->mapping =  ft_calloc(i + 1, sizeof(char *));
+	if (!map->mapping)
+		return (ERROR);
+	while (map->map[i]) // jusqua la fin..depart depuis debut map
+	{
+		tmp = map->map[i];
+		while (*tmp == ' ' || *tmp == '\t')
+			tmp++;
+		if (*tmp != '\n' && *tmp != '\0')
+			map->mapping[m++] = ft_strdup(map->map[i]);
+		i++;
+		m++;
+	}
+	return (SUCCESS);
+	
+}
 
 //vérifie qu'on est toujours en train de lire la map
 //return error
@@ -78,13 +106,14 @@ int	check_carte(t_map *map)
 {
     int	i;
 	i = map->map_nb_lines;
-    while (i > 0 && map->map[i])
+	ft_printf("valeur de i : %d\n", i);
+	i--;
+    while (i >= 0 && map->map[i])
 	{
-        i--;
+		ft_printf("\n\n\nce qu'il y a dans la str: %s", map->map[i]);
 		if (is_struc(map->map[i]) == SUCCESS)//passe le contrle x6
         {
-			ft_printf("valeur de i : %d\n",i);
-			error_handler("oh nooo on est dans les textures\n",1);
+			ft_printf("valeur de i, grandeur de la map et on a lu la map: %d\n",i);
 			return (i);//la position du debut de la map bonne fin (map->nb_line - i-1) dans le tableau.pas .cub
 		}
         else if (check_character(map->map[i], map) == ERROR)
@@ -93,6 +122,7 @@ int	check_carte(t_map *map)
 			error_handler("map with wrong character\n", 1);
             return (ERROR);
         }
+		i--;
     }
     if (i < 0)
 	{ // Si i est < 0, cela signifie que nous n'avons pas trouvé d'identifiant de configuration

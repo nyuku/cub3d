@@ -6,7 +6,7 @@
 /*   By: angnguye <angnguye@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 18:47:35 by angela            #+#    #+#             */
-/*   Updated: 2024/04/03 14:39:23 by angnguye         ###   ########.fr       */
+/*   Updated: 2024/04/04 19:13:12 by angnguye         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,8 +40,9 @@ char	*skip_space(char *str);
 void	free_split(char **split_str, int error);
 
 //parsing_map.c
-int is_struc(char *str);
-int	check_character(char *str, t_map *map);
-int   check_carte(t_map *map);
+int 	is_struc(char *str);
+int		check_character(char *str, t_map *map);
+int   	check_carte(t_map *map);
+int		init_mapping(int i, t_map *map);
 
 #endif
