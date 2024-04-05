@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_map.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: angnguye <angnguye@student.42.fr>          +#+  +:+       +#+        */
+/*   By: angela <angela@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 18:58:24 by angela            #+#    #+#             */
-/*   Updated: 2024/04/05 22:56:36 by angnguye         ###   ########.fr       */
+/*   Updated: 2024/04/06 00:44:12 by angela           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,14 @@ int	init_mapping(int i, t_map *map)
 	map->mapping =  ft_calloc(i + 1, sizeof(char *));
 	if (!map->mapping)
 		return (ERROR);
+    while (map->map[i])
+	{
+		map->map[i] = skip_space(map->map[i]);
+		if (*map->map[i] == '\0')
+				i++;
+		else
+			break;
+	}
 	while (map->map[i]) // jusqua la fin..depart depuis debut map
 	{
 		// tmp = map->map[i];

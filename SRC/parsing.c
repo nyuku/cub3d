@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: angnguye <angnguye@student.42.fr>          +#+  +:+       +#+        */
+/*   By: angela <angela@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/01 21:17:14 by angnguye          #+#    #+#             */
-/*   Updated: 2024/04/05 22:56:08 by angnguye         ###   ########.fr       */
+/*   Updated: 2024/04/06 00:47:00 by angela           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,7 @@ int	parsing_cub(int argc, char **argv)
 	init_mapping(m, map);
 
 	int i = 0;
-	ft_printf("\n");
+	//ft_printf("\n");
 	while (map->mapping[i] != NULL)
     {
         ft_printf("%s\n", map->mapping[i]); 
