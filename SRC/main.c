@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lvon-war <lvonwar@gmail.com>               +#+  +:+       +#+        */
+/*   By: angnguye <angnguye@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 11:48:49 by lvon-war          #+#    #+#             */
-/*   Updated: 2024/04/02 17:19:32 by lvon-war         ###   ########.fr       */
+/*   Updated: 2024/04/05 21:32:58 by angnguye         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,23 +75,46 @@ int	loopydyloop(void *param)
 	frame = animation(d, frame);
 	return (0);
 }
+// Main du Rcasting :D
+//int	main(void)
+//{
+//	t_data	*data;
+//
+//	data = initdata();
+//	init_world(data);
+//	minimap_init(data);
+//	player_init(data);
+//	clear_img(data);
+//	test(data);
+//	raycast(data);
+//	mlx_key_hook(data->win.ptr, &keyhook, data);
+//	mlx_loop_hook(data->win.mlx, loopydyloop, data);
+//	mlx_loop(data->win.mlx);
+//	free_data(data);
+//	error_handler("Failed to init data", 1);
+//	return (0);
+//}
 
-int	main(void)
+
+//Main pour test le parsing
+int main(int argc, char **argv)
 {
-	t_data	*data;
+	//a definir t_map *map dans main;
+	parsing_cub(argc,argv);
+	
 
-	data = initdata();
-	init_world(data);
-	minimap_init(data);
-	player_init(data);
-	initoption(data);
-	clear_img(data);
-	test(data);
-	raycast(data);
-	mlx_key_hook(data->win.ptr, &keyhook, data);
-	mlx_loop_hook(data->win.mlx, loopydyloop, data);
-	mlx_loop(data->win.mlx);
-	free_data(data);
-	error_handler("Failed to init data", 1);
-	return (0);
+	// data = initdata();
+	// init_world(data);
+	// minimap_init(data);
+	// player_init(data);
+	// initoption(data);
+	// clear_img(data);
+	// test(data);
+	// raycast(data);
+	// mlx_key_hook(data->win.ptr, &keyhook, data);
+	// mlx_loop_hook(data->win.mlx, loopydyloop, data);
+	// mlx_loop(data->win.mlx);
+	// free_data(data);
+	// error_handler("Failed to init data", 1);
+	// return (0);
 }
