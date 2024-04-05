@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: angnguye <angnguye@student.42.fr>          +#+  +:+       +#+        */
+/*   By: angela <angela@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/01 21:17:14 by angnguye          #+#    #+#             */
-/*   Updated: 2024/04/04 19:14:21 by angnguye         ###   ########.fr       */
+/*   Updated: 2024/04/05 19:10:15 by angela           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,23 +71,26 @@ int	parsing_cub(int argc, char **argv)
 
 	// ft_printf("Voici les coordonnés de Floor %d-%d-%d\n", map->floor_color->r,map->floor_color->g,map->floor_color->b);
 	// ft_printf("Voici les coordonnés de Ceiling  %d-%d-%d\n", map->ceiling_color->r,map->ceiling_color->g,map->ceiling_color->b);
-	ft_printf("longueur du fichier %d\n", map->map_nb_lines);
-	int i = 0;
-	while (map->map[i] != NULL)
-    {
-        ft_printf("%s\n", map->map[i]); 
-        i++;
-    }
-	ft_printf("\n");
-	int m = check_carte(map);
-	init_mapping(m, map);
+	ft_printf("-------------------------------------------------------------\n\t\t\ttableau receuilli\n");
+	ft_printf("longueur du tableau : %d\n", map->map_nb_lines);
+	// int i = 0;
+	// while (map->map[i] != NULL)
+    // {
+    //     ft_printf("%s\n", map->map[i]); 
+    //     i++;
+    // }
+	// ft_printf("\n");
+	//int m = 0;
+	//check_carte(map);
+	// init_mapping(m, map);
 
-	i = 0;
-	while (map->mapping[i] != NULL)
-    {
-        ft_printf("%s\n", map->mapping[i]); 
-        i++;
-    }
+	// i = 0;
+	// ft_printf("\n");
+	// while (map->mapping[i] != NULL)
+    // {
+    //     ft_printf("%s\n", map->mapping[i]); 
+    //     i++;
+    // }
 	
 	return (SUCCESS);
 }
@@ -120,8 +123,11 @@ void	check_texture(t_map *map)
 	map_tab = map->map;
 	while (map_tab && (count < 6))
 	{
+		ft_printf("alors 1\n");
 		if (!set_texture(map_tab[e], map, &texture))
 		{
+			
+			ft_printf("alors 2\n");
 			count++;
 		}
 		else
@@ -144,7 +150,15 @@ int	set_texture(char *str, t_map *map, int *texture)
 	identifiers[1] = "SO";
 	identifiers[2] = "WE";
 	identifiers[3] = "EA";
+	ft_printf("check isi\n");
+	if (!str)
+	{
+		ft_printf("plop\n");
+		return (ERROR);
+		
+	}
 	str = skip_space(str);
+	ft_printf("check la\n");
 	if (*texture <= 4 && ft_strncmp(str, identifiers[*texture], 2) == 0)
 	{
 		check_map_ext(str, "xpm");

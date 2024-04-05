@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_map.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: angnguye <angnguye@student.42.fr>          +#+  +:+       +#+        */
+/*   By: angela <angela@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 18:58:24 by angela            #+#    #+#             */
-/*   Updated: 2024/04/04 19:11:37 by angnguye         ###   ########.fr       */
+/*   Updated: 2024/04/05 18:01:53 by angela           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	init_mapping(int i, t_map *map)
 {
-	char	*tmp;
+	//char	*tmp;
 	int		m;
 	
 	m = 0;
@@ -28,11 +28,11 @@ int	init_mapping(int i, t_map *map)
 		return (ERROR);
 	while (map->map[i]) // jusqua la fin..depart depuis debut map
 	{
-		tmp = map->map[i];
-		while (*tmp == ' ' || *tmp == '\t')
-			tmp++;
-		if (*tmp != '\n' && *tmp != '\0')
-			map->mapping[m++] = ft_strdup(map->map[i]);
+		// tmp = map->map[i];
+		// while (*tmp == ' ' || *tmp == '\t')
+		// 	tmp++;
+		// if (*tmp != '\n' && *tmp != '\0')
+		map->mapping[m] = ft_strdup(map->map[i]);
 		i++;
 		m++;
 	}
@@ -57,13 +57,13 @@ int	is_struc(char *str)
     str = skip_space(str);
     while (i <= 5)
 	{
-         ft_printf("je test la str suivante %s\n", str);
+         //ft_printf("je test la str suivante %s\n", str);
 		if (ft_strncmp(str, identifiers[i], ft_strlen(identifiers[i])) == 0)
         {
 			ft_printf("on a trouvé le caractere %s\n", identifiers[i]);
 			return (SUCCESS);
 		}
-		 ft_printf("je suis en train de test le caractere %s\n", identifiers[i]);
+		//  ft_printf("je suis en train de test le caractere %s\n", identifiers[i]);
         i++;
 
     }
@@ -114,7 +114,7 @@ int	check_carte(t_map *map)
 		if (is_struc(map->map[i]) == SUCCESS)//passe le contrle x6
         {
 			ft_printf("valeur de i, grandeur de la map et on a lu la map: %d\n",i);
-			return (i);//la position du debut de la map bonne fin (map->nb_line - i-1) dans le tableau.pas .cub
+			return (i+1);//la position du debut de la map bonne fin (map->nb_line - i-1) dans le tableau.pas .cub
 		}
         else if (check_character(map->map[i], map) == ERROR)
 		{
