@@ -3,22 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   map.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lvon-war <lvon-war@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lvon-war <lvonwar@gmail.com>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/24 19:38:03 by lvon-war          #+#    #+#             */
-/*   Updated: 2024/03/29 16:39:14 by lvon-war         ###   ########.fr       */
+/*   Updated: 2024/04/02 14:53:01 by lvon-war         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cube.h"
-
-/// @brief should be initialised by input
-void	minimap_init(t_data *d)
-{
-	d->minimap.pos = (t_point2d){10, 10};
-	d->minimap.scale = 1 * d->scale;
-	d->minimap.color = int_to_rgb(BLUE);
-}
 
 void	cast_object_on_minimap(t_data	*d)
 {
@@ -73,24 +65,6 @@ void	cast_player_view(t_data *d)
 	put_line((t_vector2d){a, b}, d, int_to_rgb(YELLOW));
 }
 
-void	raytest(t_data *d)
-{
-	t_point2d	r;
-	t_point2d	o;
-	t_point2d	s;
-	double		ang;
-
-	ang = d->player.angle.y * M_PI / 180;
-	o.x = d->minimap.pos.x + (d->player.pos.x / d->minimap.scale);
-	o.y = d->minimap.pos.y + (d->player.pos.z / d->minimap.scale);
-	r.x = o.x + (d->render_distance / d->minimap.scale * cos(ang));
-	r.y = o.y + (d->render_distance / d->minimap.scale * sin(ang));
-	s.x = o.x + (d->focal / d->minimap.scale * cos(ang));
-	s.y = o.y + (d->focal / d->minimap.scale * sin(ang));
-	put_line((t_vector2d){o, r}, d, int_to_rgb(YELLOW));
-	put_line((t_vector2d){o, s}, d, int_to_rgb(GREEN));
-}
-
 void	displayraytoplayer(t_data *d)
 {
 	int			i;
@@ -127,8 +101,9 @@ void	display_minimap(t_data *d)
 		d->minimap.color};
 	put_square(p, d->minimap.size, d);
 	cast_player_on_minimap(d);
-	displayraytoplayer(d);
-	raytest(d);
-	cast_player_view(d);
+	if (d->option.raytoplayer)
+		displayraytoplayer(d);
+	if (d->option.playerview)
+		cast_player_view(d);
 	cast_object_on_minimap(d);
 }
