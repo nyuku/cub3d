@@ -6,7 +6,7 @@
 /*   By: angela <angela@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/01 21:17:14 by angnguye          #+#    #+#             */
-/*   Updated: 2024/04/06 00:47:00 by angela           ###   ########.fr       */
+/*   Updated: 2024/04/12 15:05:41 by angela           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,15 +86,14 @@ int	parsing_cub(int argc, char **argv)
 	int m = 0;
 	m =check_carte(map, line_texture);
 	init_mapping(m, map);
-
-	int i = 0;
-	//ft_printf("\n");
-	while (map->mapping[i] != NULL)
-    {
-        ft_printf("%s\n", map->mapping[i]); 
-        i++;
-    }
 	
+	t_point_pars p;
+	p.player_j = 0;  // Remplace valeur_initiale_x par la valeur désirée
+	p.player_i = 0; 
+	path_finding(map, p);
+
+	
+
 	return (SUCCESS);
 }
 

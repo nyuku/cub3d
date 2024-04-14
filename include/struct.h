@@ -3,15 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   struct.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: angnguye <angnguye@student.42.fr>          +#+  +:+       +#+        */
+/*   By: angela <angela@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 14:02:44 by lvon-war          #+#    #+#             */
-/*   Updated: 2024/04/05 21:33:24 by angnguye         ###   ########.fr       */
+/*   Updated: 2024/04/09 13:43:16 by angela           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef STRUCT_H
 # define STRUCT_H
+
+# include <stdbool.h>
 
 typedef struct img
 {
@@ -165,6 +167,12 @@ typedef struct color
 }t_color;
 
 
+typedef struct point_pars
+{
+	size_t	player_j;
+	size_t	player_i;
+}				t_point_pars;
+
 typedef struct	map
 {
 	char		**map;
@@ -177,8 +185,16 @@ typedef struct	map
 	t_color 	*floor_color;
 	t_color 	*ceiling_color;
 	char		**mapping;
+	int			end_map;
+	size_t		map_size;
+	int			player_x;
+	int			player_y;
+	size_t 		mapping_size;
+	t_point_pars		p;
+	bool		**marked;
 
 } t_map;
+
 
 
 #endif /*!STRUCT_H */
