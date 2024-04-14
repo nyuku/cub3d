@@ -6,7 +6,7 @@
 /*   By: angela <angela@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/01 21:17:14 by angnguye          #+#    #+#             */
-/*   Updated: 2024/04/12 15:05:41 by angela           ###   ########.fr       */
+/*   Updated: 2024/04/14 15:51:58 by angela           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,8 @@ int	parsing_cub(int argc, char **argv)
 	t_map *map;
 	map = init_parsing();
 	check_map_ext(argv[1], "cub");
+	check_map_ext(argv[1], "jpg");
+	check_map_ext(argv[1], "png");
 	init_map_cub(argv[1], map);
 	check_texture(map, &line_texture);
 	
@@ -99,16 +101,31 @@ int	parsing_cub(int argc, char **argv)
 
 // -check- l'extension "ext"
 //[c,u,b] et [x,p,m]
-void	check_map_ext(char *argv, char *ext)
+int	check_map_ext(char *argv, char *ext)
 {
 	int	i;
 
 	i = 0;
 	while (argv[i])
 		i++;
-	if ((argv[i - 1] != ext[2]) \
-	&& (argv[i - 2] != ext[1]) && (argv[i - 3] != ext[0]))
-		error_handler("Error: wrong files extensions", 1);
+	// if ((argv[i - 1] != ext[2]) \
+	// && (argv[i - 2] != ext[1]) && (argv[i - 3] != ext[0]))
+	// {
+	// 	ft_printf("ext: %s\n", ext);
+	// 	error_handler("Error: wrong files extensions", 1);
+	// 	return(ERROR);
+	// }
+	// return (SUCCESS);
+	if ((argv[i - 1] == ext[2]) \
+	&& (argv[i - 2] == ext[1]) && (argv[i - 3] == ext[0]))
+	{
+		
+		return (SUCCESS);
+		
+	}
+	// ft_printf("ext: %s\n", ext);
+	// error_handler("Error: wrong files extensions", 1);
+	return(ERROR);
 }
 
 // -launcher- lis le tableau et check si les elements de textures
@@ -164,10 +181,24 @@ int	set_texture(char *str, t_map *map, int *texture)
 	}
 	if (*texture <= 4 && ft_strncmp(str, identifiers[*texture], 2) == 0)
 	{
-		check_map_ext(str, "xpm");
-		*texture_pointers[*texture] = ft_strdup(skip_space(str + 2));
-		(*texture)++;
-		return (SUCCESS);
+		if (check_map_ext(str,"jpg")== SUCCESS)
+		{
+			error_handler("jpeg not supported\n",1);
+		}
+		if (check_map_ext(str,"png")== SUCCESS)
+		{
+			error_handler("png not supported\n",1);
+		}
+		if (check_map_ext(str, "xpm") == SUCCESS)
+		{	
+			*texture_pointers[*texture] = ft_strdup(skip_space(str + 2));
+			(*texture)++;
+			return (SUCCESS);
+		}
+		// if (check_map_ext(str,"jpg"))
+		// {
+		// 	error_handler("jpeg not supported\n",1);
+		// }
 	}
 	else if ((ft_strncmp(str, "F ", 2) == 0) || (ft_strncmp(str, "C ", 2) == 0))
 	{
