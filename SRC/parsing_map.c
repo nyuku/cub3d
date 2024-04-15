@@ -6,7 +6,7 @@
 /*   By: angela <angela@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 18:58:24 by angela            #+#    #+#             */
-/*   Updated: 2024/04/15 11:15:21 by angela           ###   ########.fr       */
+/*   Updated: 2024/04/15 13:22:56 by angela           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,6 +117,7 @@ int	check_character(char *str, t_map *map)
 
 // Parcourt la carte de bas en haut jusqu'à ce qu'un identifiant de configuration soit trouvé
 //retourne 
+//line_texture, la ligne ou la derniere texture a été lu
 int	check_carte(t_map *map, int line_texture)
 {
     int	i;

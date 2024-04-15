@@ -6,7 +6,7 @@
 /*   By: angela <angela@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/01 21:17:14 by angnguye          #+#    #+#             */
-/*   Updated: 2024/04/15 11:16:48 by angela           ###   ########.fr       */
+/*   Updated: 2024/04/15 23:39:57 by angela           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,11 +62,14 @@ int	parsing_cub(int argc, char **argv)
 	if (argc != 2)
 		error_handler("Pas le bon nbre d'arguments\n", 1);
 	t_map *map;
+	
+	int line_p = map_count_line(argv[1]);
+
 	map = init_parsing();
 	check_map_ext(argv[1], "cub");
 	check_map_ext(argv[1], "jpg");
 	check_map_ext(argv[1], "png");
-	init_map_cub(argv[1], map);
+	init_map_cub(argv[1], map, line_p);
 	check_texture(map, &line_texture);
 	
 	ft_printf("\nVoici le path de North:%s\n", map->texture_north);
@@ -135,7 +138,7 @@ int	check_map_ext(char *argv, char *ext)
 // -launcher- lis le tableau et check si les elements de textures
 void	check_texture(t_map *map, int *line_texture)
 {
-	int		e;
+	int		e;// pour lire le fichier ligne par ligne
 	int		count;
 	int		texture;
 	char	**map_tab;
@@ -146,9 +149,17 @@ void	check_texture(t_map *map, int *line_texture)
 	map_tab = map->map;
 	while (map_tab && (count < 6))
 	{
-		if (set_texture(map_tab[e], map, &texture) == SUCCESS)// probleme si vide
+		//boucle pour passer toute les sgtrucxture...mais garanti pas 1
+		texture = 0;
+		while(texture <= 4)
 		{
-			count++;
+			
+			if (set_texture(map_tab[e], map, &texture) == SUCCESS)// probleme si vide
+			{
+				count++;
+				break;
+			}
+			texture++;
 		}
 		// else
 		// 	error_handler("wrong texture\n", 1);
@@ -195,14 +206,17 @@ int	set_texture(char *str, t_map *map, int *texture)
 		}
 		if (check_map_ext(str, "xpm") == SUCCESS)
 		{	
-			*texture_pointers[*texture] = ft_strdup(skip_space(str + 2));
-			(*texture)++;
-			return (SUCCESS);
+			if(*texture_pointers[*texture] == NULL)
+			{	
+				*texture_pointers[*texture] = ft_strdup(skip_space(str + 2));
+				(*texture)++;
+				return (SUCCESS);
+			}
+			error_handler("texture deja présente\n",1);
+			return(ERROR);
 		}
-		// if (check_map_ext(str,"jpg"))
-		// {
-		// 	error_handler("jpeg not supported\n",1);
-		// }
+		
+
 	}
 	else if ((ft_strncmp(str, "F ", 2) == 0) || (ft_strncmp(str, "C ", 2) == 0))
 	{

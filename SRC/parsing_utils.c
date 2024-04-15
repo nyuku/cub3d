@@ -6,7 +6,7 @@
 /*   By: angela <angela@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/01 21:23:39 by angnguye          #+#    #+#             */
-/*   Updated: 2024/04/05 19:08:30 by angela           ###   ########.fr       */
+/*   Updated: 2024/04/15 13:09:38 by angela           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,9 @@ Fonctions pour récupérer les infos du fichier.cub
 */
 
 // -launcher- la fonction de compter et remplir le tableau
-void	init_map_cub(char *argv, t_map *map)
+void	init_map_cub(char *argv, t_map *map, int nb_line)
 {
-	map->map_nb_lines = map_count_line(argv);
+	map->map_nb_lines = nb_line;
 	map->map = map_harvest(argv, map->map_nb_lines);
 }
 // compte le no,bre de ligne pour le tableau map
@@ -38,7 +38,7 @@ int	map_count_line(char *argv)
 		gnl_return = get_next_line(fd);
 	}
 	if (count == 0)
-		error_handler("empty map", 1);
+		error_handler("empty file cub", 1);
 	close (fd);
 	return (count);
 }

@@ -6,7 +6,7 @@
 /*   By: angela <angela@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 18:47:35 by angela            #+#    #+#             */
-/*   Updated: 2024/04/14 15:45:53 by angela           ###   ########.fr       */
+/*   Updated: 2024/04/15 13:10:15 by angela           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@
 
 // parsing.h
 int		parsing_cub(int argc, char **argv);
-int	check_map_ext(char *argv, char *ext);
+int     check_map_ext(char *argv, char *ext);
 void	check_texture(t_map *map, int *line_texture);
 int		set_texture(char *str, t_map *map, int *texture);
 void	set_floor_ceiling(char *str, t_map *map);
@@ -38,7 +38,7 @@ int		*check_components(char **split_str, int *rgb);
 void	init_floor_ceiling(int *rgb, t_map *map, char letter);
 
 //parsing_utils.c
-void	init_map_cub(char *argv, t_map *map);
+void	init_map_cub(char *argv, t_map *map, int nb_line);
 int		map_count_line(char *argv);
 char	**map_harvest(char *map_sample, int line_map);
 char	*skip_space(char *str);

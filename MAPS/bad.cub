@@ -1,10 +1,15 @@
+ EA ./textures/Wall_East.xpm
+
+
+
+
 
 NO ./textures/Wall_North.xpm
+
+     WE ./textures/Wall_West.xpm
+
+
 SO ./textures/Wall_South.xpm
-WE ./textures/Wall_West.xpm
-EA ./textures/Wall_East.xpm
-
-
 
 
 F 220,111,119
