@@ -1,13 +1,16 @@
-EA ./textures/Wall_East.png
-NO ./textures/Wall_North.png
-SO ./textures/Wall_South.png
-WE ./textures/Wall_West.png
-F 42,42,42
-C 12,127,250
+
+NO ./textures/Wall_North.xpm
+SO ./textures/Wall_South.xpm
+WE ./textures/Wall_West.xpm
+EA ./textures/Wall_East.xpm
 
 
 
-000  00000 0000
-000000000000000
-000000000000000
-000 000000 0000
+
+F 220,111,119
+C 225,111,200
+
+11
+11
+11
+11

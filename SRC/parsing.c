@@ -6,7 +6,7 @@
 /*   By: angela <angela@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/01 21:17:14 by angnguye          #+#    #+#             */
-/*   Updated: 2024/04/14 15:51:58 by angela           ###   ########.fr       */
+/*   Updated: 2024/04/15 11:16:48 by angela           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,15 +69,18 @@ int	parsing_cub(int argc, char **argv)
 	init_map_cub(argv[1], map);
 	check_texture(map, &line_texture);
 	
-	// ft_printf("Voici le path de North:%s\n", map->texture_north);
-	// ft_printf("Voici le path de South:%s\n", map->texture_south);
-	// ft_printf("Voici le path de West:%s\n", map->texture_west);
-	// ft_printf("Voici le path de East:%s\n", map->texture_east);
+	ft_printf("\nVoici le path de North:%s\n", map->texture_north);
+	ft_printf("Voici le path de South:%s\n", map->texture_south);
+	ft_printf("Voici le path de West:%s\n", map->texture_west);
+	ft_printf("Voici le path de East:%s\n", map->texture_east);
 
-	// ft_printf("Voici les coordonnés de Floor %d-%d-%d\n", map->floor_color->r,map->floor_color->g,map->floor_color->b);
-	// ft_printf("Voici les coordonnés de Ceiling  %d-%d-%d\n", map->ceiling_color->r,map->ceiling_color->g,map->ceiling_color->b);
+	ft_printf("Voici les coordonnés de Floor %d-%d-%d\n", map->floor_color->r,map->floor_color->g,map->floor_color->b);
+	ft_printf("Voici les coordonnés de Ceiling  %d-%d-%d\n", map->ceiling_color->r,map->ceiling_color->g,map->ceiling_color->b);
+	
 	ft_printf("\n\n\n\n-------------------------------------------------------------\n\t\t\ttableau receuilli\n");
 	ft_printf("longueur du tableau : %d\n", map->map_nb_lines);
+	// on a r4cuperer l'integralite du fichier
+	
 	// int i = 0;
 	// while (map->map[i] != NULL)
     // {
@@ -87,8 +90,9 @@ int	parsing_cub(int argc, char **argv)
 	// ft_printf("\n");
 	int m = 0;
 	m =check_carte(map, line_texture);
+	ft_printf("\napres check carte\n");
 	init_mapping(m, map);
-	
+	ft_printf("\napres init mapping de carte\n");
 	t_point_pars p;
 	p.player_j = 0;  // Remplace valeur_initiale_x par la valeur désirée
 	p.player_i = 0; 

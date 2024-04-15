@@ -6,7 +6,7 @@
 /*   By: angela <angela@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 14:02:44 by lvon-war          #+#    #+#             */
-/*   Updated: 2024/04/09 13:43:16 by angela           ###   ########.fr       */
+/*   Updated: 2024/04/14 18:22:05 by angela           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -169,8 +169,8 @@ typedef struct color
 
 typedef struct point_pars
 {
-	size_t	player_j;
-	size_t	player_i;
+	int	player_j;
+	int	player_i;
 }				t_point_pars;
 
 typedef struct	map
@@ -186,10 +186,10 @@ typedef struct	map
 	t_color 	*ceiling_color;
 	char		**mapping;
 	int			end_map;
-	size_t		map_size;
+	int		map_size;
 	int			player_x;
 	int			player_y;
-	size_t 		mapping_size;
+	int		mapping_size;
 	t_point_pars		p;
 	bool		**marked;
 
