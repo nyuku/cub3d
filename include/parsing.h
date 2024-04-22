@@ -6,7 +6,7 @@
 /*   By: angela <angela@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 18:47:35 by angela            #+#    #+#             */
-/*   Updated: 2024/04/15 13:10:15 by angela           ###   ########.fr       */
+/*   Updated: 2024/04/22 11:14:31 by angela           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,10 +24,10 @@
 # include "struct.h"
 # include <stdbool.h>
 
-// parsing.h
-int		parsing_cub(int argc, char **argv);
+// parsing.c
+int		parsing_cub(int argc, char **argv, t_map *map);
 int     check_map_ext(char *argv, char *ext);
-void	check_texture(t_map *map, int *line_texture);
+int     check_texture(t_map *map, int *line_texture);
 int		set_texture(char *str, t_map *map, int *texture);
 void	set_floor_ceiling(char *str, t_map *map);
 
@@ -52,14 +52,12 @@ int		init_mapping(int i, t_map *map);
 
 void	find_player_coordinates(t_map *map);
 bool    **init_marking_array(t_map *map);
-// int     check_direction(t_map *map, int pos_y, int pos_x, int move_y, int move_x);
-// int     check_left(t_map *map, int pos_y, int pos_x);
-// int     check_right(t_map *map, int pos_y, int pos_x);
-// int     check_up(t_map *map, int pos_y, int pos_x);
-// int     check_down(t_map *map, int pos_y, int pos_x);
-// int     check_directions(t_map *map, int pos_y, int pos_x);
 int     path_finding(t_map *map, t_point_pars p);
 int     check_direction(t_map *map, t_point_pars p, int direction);
 int     check_open_map(t_map *map, t_point_pars p);
+
+// parsing_utils_bis.c
+void    free_map(t_map *map);
+t_map	*init_parsing(void);
 
 #endif

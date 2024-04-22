@@ -6,7 +6,7 @@
 /*   By: angela <angela@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 14:02:44 by lvon-war          #+#    #+#             */
-/*   Updated: 2024/04/14 18:22:05 by angela           ###   ########.fr       */
+/*   Updated: 2024/04/22 10:44:37 by angela           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -191,7 +191,7 @@ typedef struct	map
 	int			player_y;
 	int		mapping_size;
 	t_point_pars		p;
-	bool		**marked;
+	
 
 } t_map;
 

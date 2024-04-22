@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: angnguye <angnguye@student.42.fr>          +#+  +:+       +#+        */
+/*   By: angela <angela@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 11:48:49 by lvon-war          #+#    #+#             */
-/*   Updated: 2024/04/05 21:32:58 by angnguye         ###   ########.fr       */
+/*   Updated: 2024/04/22 11:14:44 by angela           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,26 +95,12 @@ int	loopydyloop(void *param)
 //	return (0);
 //}
 
-
+#include "cube.h"
 //Main pour test le parsing
 int main(int argc, char **argv)
 {
-	//a definir t_map *map dans main;
-	parsing_cub(argc,argv);
-	
+	t_map *map = init_parsing();
+	parsing_cub(argc,argv, map);
+	free_map(map);
 
-	// data = initdata();
-	// init_world(data);
-	// minimap_init(data);
-	// player_init(data);
-	// initoption(data);
-	// clear_img(data);
-	// test(data);
-	// raycast(data);
-	// mlx_key_hook(data->win.ptr, &keyhook, data);
-	// mlx_loop_hook(data->win.mlx, loopydyloop, data);
-	// mlx_loop(data->win.mlx);
-	// free_data(data);
-	// error_handler("Failed to init data", 1);
-	// return (0);
 }

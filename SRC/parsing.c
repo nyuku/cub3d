@@ -6,40 +6,11 @@
 /*   By: angela <angela@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/01 21:17:14 by angnguye          #+#    #+#             */
-/*   Updated: 2024/04/15 23:39:57 by angela           ###   ########.fr       */
+/*   Updated: 2024/04/22 11:15:18 by angela           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cube.h"
-
-//init les structs...a mettre ailleurs dans un autre fichier
-t_map	*init_parsing(void)
-{
-	t_map *map = malloc(sizeof(t_map));
-	t_map *color = malloc(sizeof(color));
-	if (map == NULL)
-	{
-		error_handler("peut pas malloc pour map\n", 1);
-		return (NULL);
-	}
-	map->floor_color = malloc(sizeof(t_color));
-	if (map->floor_color == NULL)
-	{
-		free(map);
-		error_handler("Erreur d'allocation pour floor_color\n", 1);
-		return (NULL);
-	}
-
-	map->ceiling_color = malloc(sizeof(t_color));
-	if (map->ceiling_color == NULL) {
-		free(map->floor_color);
-		free(map);
-		error_handler("Erreur d'allocation pour ceiling_color\n", 1);
-		return (NULL);
-	}
-	map->player_orientation = '-';
-	return(map);
-}
 
 /*
 -Main parsing-
@@ -54,34 +25,32 @@ But:
 - vérifiér viabilité
 !
 */
-int	parsing_cub(int argc, char **argv)
+int	parsing_cub(int argc, char **argv, t_map *map)
 {
 	int	line_texture;
 
 	line_texture = 0;
 	if (argc != 2)
 		error_handler("Pas le bon nbre d'arguments\n", 1);
-	t_map *map;
 	
 	int line_p = map_count_line(argv[1]);
-
-	map = init_parsing();
 	check_map_ext(argv[1], "cub");
 	check_map_ext(argv[1], "jpg");
 	check_map_ext(argv[1], "png");
 	init_map_cub(argv[1], map, line_p);
-	check_texture(map, &line_texture);
+	if (check_texture(map, &line_texture))
+		free_map(map);
 	
-	ft_printf("\nVoici le path de North:%s\n", map->texture_north);
-	ft_printf("Voici le path de South:%s\n", map->texture_south);
-	ft_printf("Voici le path de West:%s\n", map->texture_west);
-	ft_printf("Voici le path de East:%s\n", map->texture_east);
+	// ft_printf("\nVoici le path de North:%s\n", map->texture_north);
+	// ft_printf("Voici le path de South:%s\n", map->texture_south);
+	// ft_printf("Voici le path de West:%s\n", map->texture_west);
+	// ft_printf("Voici le path de East:%s\n", map->texture_east);
 
-	ft_printf("Voici les coordonnés de Floor %d-%d-%d\n", map->floor_color->r,map->floor_color->g,map->floor_color->b);
-	ft_printf("Voici les coordonnés de Ceiling  %d-%d-%d\n", map->ceiling_color->r,map->ceiling_color->g,map->ceiling_color->b);
+	// ft_printf("Voici les coordonnés de Floor %d-%d-%d\n", map->floor_color->r,map->floor_color->g,map->floor_color->b);
+	// ft_printf("Voici les coordonnés de Ceiling  %d-%d-%d\n", map->ceiling_color->r,map->ceiling_color->g,map->ceiling_color->b);
 	
-	ft_printf("\n\n\n\n-------------------------------------------------------------\n\t\t\ttableau receuilli\n");
-	ft_printf("longueur du tableau : %d\n", map->map_nb_lines);
+	// ft_printf("\n\n\n\n-------------------------------------------------------------\n\t\t\ttableau receuilli\n");
+	// ft_printf("longueur du tableau : %d\n", map->map_nb_lines);
 	// on a r4cuperer l'integralite du fichier
 	
 	// int i = 0;
@@ -93,16 +62,11 @@ int	parsing_cub(int argc, char **argv)
 	// ft_printf("\n");
 	int m = 0;
 	m =check_carte(map, line_texture);
-	ft_printf("\napres check carte\n");
 	init_mapping(m, map);
-	ft_printf("\napres init mapping de carte\n");
 	t_point_pars p;
 	p.player_j = 0;  // Remplace valeur_initiale_x par la valeur désirée
 	p.player_i = 0; 
 	path_finding(map, p);
-
-	
-
 	return (SUCCESS);
 }
 
@@ -135,12 +99,12 @@ int	check_map_ext(char *argv, char *ext)
 	return(ERROR);
 }
 
-// -launcher- lis le tableau et check si les elements de textures
-void	check_texture(t_map *map, int *line_texture)
+// -launcher- lit le tableau et check si les elements de textures
+int	check_texture(t_map *map, int *line_texture)
 {
 	int		e;// pour lire le fichier ligne par ligne
-	int		count;
-	int		texture;
+	int		count; // texture
+	int		texture;//indice de check
 	char	**map_tab;
 
 	texture = 0;
@@ -149,8 +113,11 @@ void	check_texture(t_map *map, int *line_texture)
 	map_tab = map->map;
 	while (map_tab && (count < 6))
 	{
-		//boucle pour passer toute les sgtrucxture...mais garanti pas 1
+		//boucle pour passer toute les strucxture...mais garanti pas 1
 		texture = 0;
+		// int i = 0;
+		while (map_tab[e] && *(skip_space(map_tab[e])) == '\0')  //(map_tab[e][0] == '\0' || map_tab[e][0] == '\n' || map_tab[e][0] == ' ' || map_tab[e][0] == '\t')) {
+        	e++;
 		while(texture <= 4)
 		{
 			
@@ -161,16 +128,24 @@ void	check_texture(t_map *map, int *line_texture)
 			}
 			texture++;
 		}
-		// else
-		// 	error_handler("wrong texture\n", 1);
+		if (count == 0)
+		{
+			error_handler("file non authorised\n",1);
+			return (ERROR);
+		}
 		e++;
 	}
 	*line_texture = e;
 	if (count != 6)
+	{
 		error_handler("wrong texture\n", 1);
+		return (1);
+	}
+	return (SUCCESS);
 }
 
 // -check- NO, SO, WE, EA, F, C
+//check un a la fois... et si doublon
 int	set_texture(char *str, t_map *map, int *texture)
 {
 	char	**texture_pointers[4];

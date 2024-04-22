@@ -6,7 +6,7 @@
 #    By: angela <angela@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/25 16:52:50 by lvon-war          #+#    #+#              #
-#    Updated: 2024/04/08 16:37:25 by angela           ###   ########.fr        #
+#    Updated: 2024/04/22 10:51:08 by angela           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -33,7 +33,8 @@ CFLAGS	=	-Wall -Werror -Wextra
 AR		=	ar -rsc
 FILES	=	main.c controls.c calc.c utils.c display.c  display_world.c \
 sprite.c object.c data_utils.c player.c map.c utilsbis.c init.c \
-parsing.c parsing_floor_ceiling.c parsing_utils.c parsing_map.c parsing_flood_fill.c
+parsing.c parsing_floor_ceiling.c parsing_utils.c parsing_map.c parsing_flood_fill.c \
+parsing_utils_bis.c
 # Path for .c , .h and .o Files 
 LIBFT	=	./include/libft/lib.a
 SRC_PATH := ./SRC/
