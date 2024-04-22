@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lvon-war <lvonwar@gmail.com>               +#+  +:+       +#+        */
+/*   By: spook <spook@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/15 18:23:20 by lvon-war          #+#    #+#             */
-/*   Updated: 2024/03/26 10:35:53 by lvon-war         ###   ########.fr       */
+/*   Updated: 2024/04/21 03:33:21 by spook            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,8 @@ t_RGB	int_to_rgb(int color)
 	return (rgb);
 }
 
-///	@brief check if a point is out of the window. based on vector's direction
+///	@brief check if a point is out of the window. 
+/// based on vector's direction unused
 int	break_point(t_vector2d AB, t_point current)
 {
 	int	is_out;
@@ -66,21 +67,53 @@ t_RGB	*texture_monchrome_create(t_point2d size, t_RGB color)
 	int			j;
 	int			n;
 
-	j = 0;
+	j = -1;
 	n = 0;
 	texture = malloc(sizeof(t_RGB) * size.x * size.y);
 	if (!texture)
 		error_handler("Failed to create texture", 1);
-	while (j < size.y)
+	while (++j < size.y)
 	{
-		i = 0;
-		while (i < size.x)
+		i = -1;
+		while (++i < size.x)
 		{
 			texture[n] = color;
 			n++;
-			i++;
 		}
-		j++;
+	}
+	return (texture);
+}
+
+t_RGB	*texture_pattern_create(t_point2d size, t_RGB color)
+{
+	t_RGB		*texture;
+	t_RGB		tmp;
+	int			i;
+	int			j;
+	int			n;
+
+	j = -1;
+	n = 0;
+	texture = malloc(sizeof(t_RGB) * size.x * size.y);
+	if (!texture)
+		error_handler("Failed to create texture", 1);
+	while (++j < size.y)
+	{
+		i = -1;
+		tmp = color;
+		if (j > size.y / 2)
+			tmp = int_to_rgb(DARKBLUE);
+		while (++i < size.x)
+		{
+			if (i > size.x / 2)
+			{
+				tmp = int_to_rgb(DARKRED);
+				if (j > size.y / 2)
+					tmp = int_to_rgb((DARKBLUE + DARKRED) / 2);
+			}
+			texture[n] = tmp;
+			n++;
+		}
 	}
 	return (texture);
 }

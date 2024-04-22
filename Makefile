@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: lvon-war <lvonwar@gmail.com>               +#+  +:+       +#+         #
+#    By: angela <angela@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/25 16:52:50 by lvon-war          #+#    #+#              #
-#    Updated: 2024/03/28 22:26:20 by lvon-war         ###   ########.fr        #
+#    Updated: 2024/04/22 11:24:44 by angela           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,9 +31,10 @@ ENAME	=	cube3d
 NAME	=	cube3d.a
 CFLAGS	=	-Wall -Werror -Wextra
 AR		=	ar -rsc
-FILES	=	main.c controls.c calc.c utils.c display.c  display_world.c \
-sprite.c object.c data_utils.c player.c map.c utilsbis.c init.c parsing.c
-
+FILES	=	main.c controls.c calc.c calcbis.c calcter.c utils.c display.c  display_world.c \
+sprite.c object.c objectinit.c data_utils.c player.c map.c utilsbis.c init.c test.c vector.c \
+parsing.c parsing_floor_ceiling.c parsing_utils.c parsing_map.c parsing_flood_fill.c \
+parsing_utils_bis.c
 # Path for .c , .h and .o Files 
 LIBFT	=	./include/libft/lib.a
 SRC_PATH := ./SRC/
